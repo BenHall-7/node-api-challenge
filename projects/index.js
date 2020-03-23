@@ -2,6 +2,7 @@ const express = require("express");
 const helper = require("../data/helpers/projectModel");
 const validateProjectID = require("../middleware/validateProjectID");
 const validateProject = require("../middleware/validateProject");
+const validateAction = require("../middleware/validateAction");
 
 const router = express.Router();
 
@@ -31,6 +32,12 @@ router.post("/", validateProject, (req, res) => {
     helper.insert(req.body)
         .then(res2 => res.status(201).json(res2))
         .catch(() => res.status(500).json({error: "unable to post project"}));
+})
+
+router.post("/:id/actions", validateProjectID, validateAction, (req, res) => {
+    helper.insert({ ...req.body, project_id: req.project.id })
+        .then(res2 => res.status(201).json(res2))
+        .catch(() => res.status(500).json({error: "unable to post action to project"}));
 })
 
 router.put("/:id", validateProjectID, validateProject, (req, res) => {
