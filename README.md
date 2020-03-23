@@ -40,13 +40,23 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+  Express is a lightweight framework built around node.js' http library. It provides routing and middleware support for extended functionality.
+
 - [ ] Describe Middleware?
+
+  Middleware is any code that acts on a request before some main action. It allows for validation of data, security improvements, and utilization of DRY code practice.
 
 - [ ] Describe a Resource?
 
+  A resource is best described as any section of data managed by a database, or a particular aspect of a dataset. It is often best advised to base router paths on resources, and let the exact behavior be dependent on the HTTP request method.
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+  In the header of an API response, the status is used to tell in what way the action failed or succeeded
+
 - [ ] How can we partition our application into sub-applications?
+
+  With express routers we have a way to separate request paths into separate files/folders.
 
 ## Minimum Viable Product
 
