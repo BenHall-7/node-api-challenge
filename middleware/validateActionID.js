@@ -5,6 +5,7 @@ function validateActionID(req, res, next) {
     helper.get(id)
         .then(res2 => {
             if (res2) {
+                console.log(res2)
                 req.action = res2;
                 next();
             } else {

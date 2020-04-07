@@ -1,5 +1,6 @@
 const express = require("express");
 const helper = require("../data/helpers/projectModel");
+const actionHelper = require("../data/helpers/actionModel");
 const validateProjectID = require("../middleware/validateProjectID");
 const validateProject = require("../middleware/validateProject");
 const validateAction = require("../middleware/validateAction");
@@ -17,15 +18,7 @@ router.get("/:id", validateProjectID, (req, res) => {
 })
 
 router.get("/:id/actions", validateProjectID, (req, res) => {
-    helper.getProjectActions(req.project.id)
-        .then(res2 => {
-            if (res2) {
-                res.status(200).json(res);
-            } else {
-                res.status(500).json({error: "Error retrieving project actions"})
-            }
-        })
-        .catch(() => res.status(500).json({error: "Error retrieving project actions"}))
+    res.status(200).json(req.project.actions);
 })
 
 router.post("/", validateProject, (req, res) => {
@@ -35,13 +28,13 @@ router.post("/", validateProject, (req, res) => {
 })
 
 router.post("/:id/actions", validateProjectID, validateAction, (req, res) => {
-    helper.insert({ ...req.body, project_id: req.project.id })
+    actionHelper.insert({ ...req.body, project_id: req.params.id })
         .then(res2 => res.status(201).json(res2))
         .catch(() => res.status(500).json({error: "unable to post action to project"}));
 })
 
 router.put("/:id", validateProjectID, validateProject, (req, res) => {
-    helper.update(req.project.id)
+    helper.update(req.project.id, {...req.body})
         .then(res2 => {
             if (res2) {
                 res.status(200).json(res2);

@@ -11,12 +11,12 @@ router.get("/", (_, res) => {
         .catch(() => res.status(500).json({error: "Error retrieving actions"}));
 })
 
-router.get("/:id", validateActionID, (_, res) => {
-    res.status(200).json(res.action);
+router.get("/:id", validateActionID, (req, res) => {
+    res.status(200).json(req.action);
 })
 
 router.put("/:id", validateActionID, validateAction, (req, res) => {
-    helper.update(req.action.id)
+    helper.update(req.action.id, req.body)
         .then(res2 => {
             if (res2) {
                 res.status(200).json(res2);
